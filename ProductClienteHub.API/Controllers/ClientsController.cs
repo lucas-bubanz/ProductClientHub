@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductClienteHub.API.Interfaces;
 using ProductClienteHub.Communication.Requests;
 using ProductClienteHub.Communication.Responses;
 
