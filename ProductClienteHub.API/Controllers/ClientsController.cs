@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductClienteHub.API.UseCases.Clients.Register;
 using ProductClienteHub.Communication.Requests;
 using ProductClienteHub.Communication.Responses;
 
@@ -10,9 +11,24 @@ namespace ProductClienteHub.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseClientJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
         public IActionResult RegisterClientAsync([FromBody] RequestClientJson request)
         {
-            return Created();
+            try
+            {
+                var useCase = new RegisterClientUseCase();
+                var response = useCase.Execute(request);
+
+                return Created(string.Empty, response);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseErrorMessagesJson(ex.Message));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorMessagesJson("ERRO DESCONHECIDO!"));
+            }
         }
 
         [HttpPut]

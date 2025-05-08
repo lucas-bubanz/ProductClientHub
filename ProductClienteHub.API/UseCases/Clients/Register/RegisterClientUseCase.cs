@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ProductClienteHub.Communication.Requests;
+using ProductClienteHub.Communication.Responses;
+
+namespace ProductClienteHub.API.UseCases.Clients.Register
+{
+    public class RegisterClientUseCase
+    {
+        public ResponseClientJson Execute(RequestClientJson request)
+        {
+            var validator = new RegisterClientValidator();
+            var result = validator.Validate(request);
+
+            if(result.IsValid == false)
+            {
+                throw new ArgumentException("Erro nos dados recebidos");
+            }
+
+            return new ResponseClientJson();
+        }
+    }
+}
