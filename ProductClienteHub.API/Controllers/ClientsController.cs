@@ -12,7 +12,7 @@ namespace ProductClienteHub.API.Controllers
         [ProducesResponseType(typeof(ResponseClientJson), StatusCodes.Status201Created)]
         public IActionResult RegisterClientAsync([FromBody] RequestClientJson request)
         {
-             return Created();
+            return Created();
         }
 
         [HttpPut]
