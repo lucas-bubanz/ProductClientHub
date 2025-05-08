@@ -8,5 +8,10 @@ namespace ProductClienteHub.Communication.Responses
         {
             Erros = [message];
         }
+
+        public ResponseErrorMessagesJson(List<string> messages)
+        {
+            Erros = messages;
+        }
     }
 }
