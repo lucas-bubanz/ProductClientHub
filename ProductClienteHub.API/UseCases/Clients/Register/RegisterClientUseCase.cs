@@ -1,3 +1,5 @@
+using ProductClienteHub.API.Entities;
+using ProductClienteHub.API.Infrastructure;
 using ProductClienteHub.Communication.Requests;
 using ProductClienteHub.Communication.Responses;
 using ProductClienteHub.Execptions.ExceptionsBase;
@@ -7,6 +9,22 @@ namespace ProductClienteHub.API.UseCases.Clients.Register
     public class RegisterClientUseCase
     {
         public ResponseClientJson Execute(RequestClientJson request)
+        {                      
+            Validate(request);
+
+            var context = new ProductClientHubDbContext();
+            var entity = new Client
+            {            
+                Name = request.Name,
+                Email = request.Email                
+            };
+
+            context.Clients.Add(entity);
+            context.SaveChanges();
+
+            return new ResponseClientJson();
+        }
+        private void Validate(RequestClientJson request)
         {
             var validator = new RegisterClientValidator();
             var result = validator.Validate(request);
@@ -16,8 +34,6 @@ namespace ProductClienteHub.API.UseCases.Clients.Register
                 var errors = result.Errors.Select(failure => failure.ErrorMessage).ToList();
                 throw new ErrorOnValidationException(errors);
             }
-
-            return new ResponseClientJson();
         }
     }
 }

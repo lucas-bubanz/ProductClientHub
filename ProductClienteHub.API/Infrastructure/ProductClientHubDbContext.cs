@@ -10,7 +10,7 @@ namespace ProductClienteHub.API.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=C:\\Users\adm.lucasb\\Downloads\\APIClientHub.db");
+            optionsBuilder.UseSqlite("Data Source=C:\\Users\adm.lucasb\\Downloads\\APIClientHub.db");                    
         }
     }
 }
