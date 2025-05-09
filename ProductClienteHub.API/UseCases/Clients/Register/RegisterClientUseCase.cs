@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ProductClienteHub.Communication.Requests;
 using ProductClienteHub.Communication.Responses;
 using ProductClienteHub.Execptions.ExceptionsBase;
