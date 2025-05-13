@@ -1,32 +1,26 @@
-using ProductClienteHub.API.Entities;
 using ProductClienteHub.API.Infrastructure;
 using ProductClienteHub.API.UseCases.Clients.SharedValidator;
 using ProductClienteHub.Communication.Requests;
-using ProductClienteHub.Communication.Responses;
 using ProductClienteHub.Execptions.ExceptionsBase;
 
-namespace ProductClienteHub.API.UseCases.Clients.Register
+namespace ProductClienteHub.API.UseCases.Clients.Update
 {
-    public class RegisterClientUseCase
+    public class UpdateClientUseCase
     {
-        public ResponseShortClientJson Execute(RequestClientJson request)
-        {                      
+        public void Execute(Guid clientId, RequestClientJson request)
+        {
             Validate(request);
-
             var context = new ProductClientHubDbContext();
-            var entity = new Client
-            {            
-                Name = request.Name,
-                Email = request.Email                
-            };
+            var entity = context.Clients.FirstOrDefault(client => client.Id == clientId) ?? throw new NotFoundException("Cliente não encontrado");
 
-            context.Clients.Add(entity);
-            context.SaveChanges();
+            entity.Name = request.Name;
+            entity.Email = request.Email;
 
-            return new ResponseShortClientJson();
+            context.Clients.Update(entity);
+            context.SaveChanges();  
         }
         private void Validate(RequestClientJson request)
-        {
+        {   
             var validator = new RequestClientValidator();
             var result = validator.Validate(request);
 
@@ -35,6 +29,6 @@ namespace ProductClienteHub.API.UseCases.Clients.Register
                 var errors = result.Errors.Select(failure => failure.ErrorMessage).ToList();
                 throw new ErrorOnValidationException(errors);
             }
-        }
-    }
+        }  
+    };
 }
