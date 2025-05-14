@@ -6,6 +6,5 @@ namespace ProductClienteHub.API.Entities
         public string Brand { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public Guid ClientId { get; set; }
-
     }
 }
