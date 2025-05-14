@@ -26,11 +26,11 @@ namespace ProductClienteHub.API.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
         public IActionResult UpdatClientAsync([FromRoute]Guid id, [FromBody] RequestClientJson request)
         {
             var useCase = new UpdateClientUseCase();
             useCase.Execute(id, request);
-
             return NoContent();
         }
 
