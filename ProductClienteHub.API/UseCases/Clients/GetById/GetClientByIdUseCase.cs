@@ -20,11 +20,11 @@ namespace ProductClienteHub.API.UseCases.Clients.GetById
                 Id = entity.Id,
                 Name = entity.Name,
                 Email = entity.Email,
-                Products = entity.Products.Select(product => new ResponseShortProductJson
+                Products = [.. entity.Products.Select(product => new ResponseShortProductJson
                 {
                     Id = product.Id,
                     Name = product.Name,
-                }).ToList()
+                })]
             };
         }
     }

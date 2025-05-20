@@ -4,7 +4,6 @@ using ProductClienteHub.API.UseCases.Clients.GetAll;
 using ProductClienteHub.API.UseCases.Clients.GetById;
 using ProductClienteHub.API.UseCases.Clients.Register;
 using ProductClienteHub.API.UseCases.Clients.Update;
-using ProductClienteHub.API.UseCases.Products.Delete;
 using ProductClienteHub.Communication.Requests;
 using ProductClienteHub.Communication.Responses;
 
@@ -30,7 +29,7 @@ namespace ProductClienteHub.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
-        public IActionResult UpdatClientAsync([FromRoute]Guid id, [FromBody] RequestClientJson request)
+        public IActionResult UpdatClientAsync([FromRoute] Guid id, [FromBody] RequestClientJson request)
         {
             var useCase = new UpdateClientUseCase();
             useCase.Execute(id, request);
@@ -47,7 +46,7 @@ namespace ProductClienteHub.API.Controllers
 
             if (response.Clients.Count == 0)
                 return NoContent();
-            
+
             return Ok(response);
         }
 
